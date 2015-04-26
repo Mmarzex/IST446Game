@@ -1,0 +1,13 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# Sprite sheet: main_spritesheet.png (32 x 64)
+# $TexturePacker:SmartUpdate:93a8ea5c4480e892622fc40b706fc6da:a0cf52809b26e38591b3435fc8183126:fee9c48eb126fc05619fde0ebc574613$
+#
+
+ground;3;45;16;16;0.5;0.5
+treasure;3;6;13;15;0.5384615384615384;0.4666666666666667
+wall;3;25;16;16;0.5;0.5

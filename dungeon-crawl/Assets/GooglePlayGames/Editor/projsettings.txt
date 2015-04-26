@@ -1,0 +1,6 @@
+lastUpgrade=00915
+proj.AppId=884144976651
+android.SetupDone=true
+ios.ClientId=884144976651-8rv26hmhrfke6afbuk4l428bh3eordap.apps.googleusercontent.com
+ios.BundleId=net.maximumdev.dungeoncrawl
+ios.SetupDone=true

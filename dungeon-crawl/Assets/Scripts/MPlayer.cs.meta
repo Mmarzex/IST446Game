@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: af0db4bb8324b4a23b0f01a7d0da8222
+timeCreated: 1429833005
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - spotLight: {instanceID: 0}
+  - light: {instanceID: 0}
+  - bullet: {instanceID: 0}
+  - firePosition: {instanceID: 0}
+  - rigidBody: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 630b5433ca1644b8eb2ffc92f84ef6c5
+timeCreated: 1429832980
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - wall: {fileID: 104478, guid: b6d9124be84ed40af81b14c3464d1a5a, type: 2}
+  - ground: {fileID: 132892, guid: 26d71187cf91e4b679a2a3353e997f0a, type: 2}
+  - player: {fileID: 152638, guid: 20707fad4ca7444e5b0640626977da87, type: 2}
+  - enemy: {fileID: 110410, guid: 9934cc533c8dd4421ad4c55d1bdebc34, type: 2}
+  - door: {fileID: 183446, guid: 6e3e5acafd22a48dcaa97d62bdd0938b, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

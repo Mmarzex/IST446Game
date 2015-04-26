@@ -1,0 +1,63 @@
+API
+    GET /rooms
+        parameters:
+            player_1=id_1
+            player_2=id_2
+
+        returns room for player 1 and 2
+
+    POST /rooms
+        parameters:
+            player_1=id_1
+            player_2=id_2
+
+        creates and returns room for player 1 and 2
+
+JSON format
+
+Tile types for terrain:
+0 = Ground
+1 = Wall
+
+{
+    player1: {
+        score: 0
+    },
+
+    player2: {
+        score: 0
+    },
+
+    map: {
+        terrain: [
+            [...]
+            ...
+        ],
+
+        rooms: [
+            { x1: 0, y1: 0, width: 0, height 0 }
+        ],
+
+        enemies: [
+            {
+                type: 0-2,
+                position: {
+                    x: 0, y: 0
+                }
+            }
+        ],
+
+        playerSpawn: {
+            x: 0, y:0
+        },
+
+        properties: {
+            width: 0,
+            height: 0
+        },
+
+        exitPosition: {
+            x: 0, y:0
+        }
+    }
+}
