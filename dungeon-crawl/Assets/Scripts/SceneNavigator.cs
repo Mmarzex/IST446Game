@@ -20,4 +20,8 @@ public class SceneNavigator : MonoBehaviour {
 	public void onCreditsClick() {
 		Application.LoadLevel("Credits");
 	}
+
+	public void onInstructionsClick() {
+		Application.LoadLevel("Instructions");
+	}
 }
