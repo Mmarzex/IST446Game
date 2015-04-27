@@ -2,22 +2,21 @@
 using System.Collections;
 
 public class Door : MonoBehaviour {
-
+	private float score;
+	public MPlayer Player;
 	// Use this for initialization
-	void Start () {
-	
+	void Start()
+	{
+		Player = MPlayer.FindObjectOfType<MPlayer>(); 
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	public void OnTriggerEnter2D(Collider2D other) {
 		Debug.Log("Door colliding with " + other.name);
 		if (other.tag == "player_2") {
 			Debug.Log ("player at door");
-
+			score = Player.score;
+			PlayerPrefs.SetInt("score", (int)score);
 			var mpcontroller = GameObject.Find ("MPController");
 			GameObject.DontDestroyOnLoad(mpcontroller);
 
