@@ -118,13 +118,13 @@ public class MultiplayerController : MonoBehaviour {
 
 		var score = PlayerPrefs.GetInt("score");
 		bool selfWon = false;
-		if(score > other_score) {
+		if(score < other_score) {
 			selfWon = true;
 		}
 		foreach(Participant p in match.Participants) {
 			MatchOutcome.ParticipantResult result;
 			uint placement;
-			if(p.ParticipantId.Equals(currentMatch.SelfParticipantId)) {
+			if(p.ParticipantId.Equals(match.SelfParticipantId)) {
 				if(selfWon) { 
 					result = MatchOutcome.ParticipantResult.Win;
 					placement = 1;
@@ -141,6 +141,9 @@ public class MultiplayerController : MonoBehaviour {
 					placement = 1;
 				}
 			}
+
+			var gm = GameObject.Find ("MPController");
+			GameObject.DontDestroyOnLoad(gm);
 
 			outcome.SetParticipantResult(p.ParticipantId, result, placement);
 		}
@@ -161,6 +164,13 @@ public class MultiplayerController : MonoBehaviour {
 			if(success) {
 				Debug.Log ("Game over!");
 				StartCoroutine(resetMap());
+
+				var myout = outcome.GetResultFor(match.SelfParticipantId);
+				if(myout == MatchOutcome.ParticipantResult.Win) {
+					PlayerPrefs.SetString("winner", "You Won, score==> " + score);
+				} else {
+					PlayerPrefs.SetString("winner", "You Lost, score==> " + score);
+				}
 				Application.LoadLevel("gameover");
 
 			}
@@ -268,6 +278,11 @@ public class MultiplayerController : MonoBehaviour {
 						var d = match.Data;
 
 						var winner = Encoding.ASCII.GetString(d);
+						if(winner.Equals("Player Two Wins!")) {
+							winner = "You win, score==>" + PlayerPrefs.GetInt("score");
+						} else {
+							winner = "You lose, score==>" + PlayerPrefs.GetInt("score");
+						}
 						PlayerPrefs.SetString("winner", winner);
 						Debug.Log ("Acknowledged Game is over");
 						Application.LoadLevel("gameover");
