@@ -4,6 +4,7 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
+<<<<<<< Updated upstream
   m_Scenes:
   - enabled: 1
 <<<<<<< HEAD
@@ -19,3 +20,6 @@ EditorBuildSettings:
 =======
     path: Assets/Scenes/Instructions.unity
 >>>>>>> 4635a2ac80b6e32594f017bf9ee0ccb8cf426960
+=======
+  m_Scenes: []
+>>>>>>> Stashed changes
