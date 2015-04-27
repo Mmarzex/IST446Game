@@ -16,4 +16,8 @@ public class SceneNavigator : MonoBehaviour {
 	public void onMenuClick() {
 		Application.LoadLevel("Menu");
 	}
+
+	public void onCreditsClick() {
+		Application.LoadLevel("Credits");
+	}
 }
