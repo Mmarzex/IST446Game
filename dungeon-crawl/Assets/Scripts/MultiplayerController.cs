@@ -6,6 +6,7 @@ using UnityEngine.SocialPlatforms;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using GooglePlayGames.BasicApi.Multiplayer;
+using SimpleJSON;
 
 public struct turn_data {
 	string player_id;
@@ -41,7 +42,17 @@ public class MultiplayerController : MonoBehaviour {
 		PlayGamesPlatform.DebugLogEnabled = true;
 
 		GooglePlayGames.PlayGamesPlatform.Activate();
-
+		if(!Social.localUser.authenticated) {
+			mWaitingForAuth = true;
+			Social.localUser.Authenticate((bool success) => {
+				mWaitingForAuth = false;
+				if(success) {
+					Debug.Log ("Success in authenticating");
+				} else {
+					Debug.Log ("Did not authenticate successfully");
+				}
+			});
+		}
 //		if(!Social.localUser.authenticated) {
 //			mWaitingForAuth = true;
 //			Social.localUser.Authenticate((bool success) => {
@@ -93,7 +104,9 @@ public class MultiplayerController : MonoBehaviour {
 
 			int other_score = BitConverter.ToInt32(d, 0);
 			Debug.Log ("Score===> " + other_score);
-			finishMatch(t, other_score);
+			if(t.TurnStatus == TurnBasedMatch.MatchTurnStatus.MyTurn) {
+				finishMatch(t, other_score);
+			}
 //			Application.LoadLevel("Finish");
 		} else {
 			mWaiting = false;
@@ -140,15 +153,39 @@ public class MultiplayerController : MonoBehaviour {
 			winner = "Player Two Wins!";
 		}
 
+		PlayerPrefs.SetString("winner", winner);
+		Debug.Log ("In finish, winner ==> " + winner);
 		Byte[] finalData = Encoding.ASCII.GetBytes(winner);
 
 		PlayGamesPlatform.Instance.TurnBased.Finish (match, finalData, outcome, (bool success) => {
 			if(success) {
 				Debug.Log ("Game over!");
+				StartCoroutine(resetMap());
 				Application.LoadLevel("gameover");
 
 			}
 		});
+	}
+
+	private IEnumerator resetMap() {
+		WWWForm form = new WWWForm();
+		form.AddField("playerid", PlayerPrefs.GetString("playerId"));
+		form.AddField("status", -1);
+		form.AddField("score", PlayerPrefs.GetInt("score"));
+		
+		WWW request = new WWW("http://107.170.10.115:3000/rooms/" + PlayerPrefs.GetString("roomId"), form);
+		Debug.Log("Sending request to http://107.170.10.115:3000/rooms/" + PlayerPrefs.GetString("roomId"));
+		Debug.Log("PlayerId=" + PlayerPrefs.GetString("playerId"));
+		Debug.Log("Score=" + PlayerPrefs.GetInt("score"));
+		
+		yield return request;
+		
+		if (request.error == null) {
+			Debug.Log("Updated room successfuly");
+			var room = JSONNode.Parse(request.text);
+			var roomStatus = room["isFinished"].AsBool;
+			Debug.Log("Room is finished: " + roomStatus);
+		}
 	}
 
 	private string DecideWhoIsNext(TurnBasedMatch match) {
@@ -228,6 +265,10 @@ public class MultiplayerController : MonoBehaviour {
 			if(success && match.Status == TurnBasedMatch.MatchStatus.Complete) {
 				PlayGamesPlatform.Instance.TurnBased.AcknowledgeFinished(match, (bool ack_success) => {
 					if(ack_success) {
+						var d = match.Data;
+
+						var winner = Encoding.ASCII.GetString(d);
+						PlayerPrefs.SetString("winner", winner);
 						Debug.Log ("Acknowledged Game is over");
 						Application.LoadLevel("gameover");
 					}
