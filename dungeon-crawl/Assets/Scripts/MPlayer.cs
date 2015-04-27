@@ -101,7 +101,6 @@ public class MPlayer : MonoBehaviour {
 		if (health == 0) {
 			var mpController = GameObject.Find ("MPController");
 			var mp = mpController.GetComponent<MultiplayerController>();
-			mp.takeTurn();
 			score = score < 0 ? 0 : score;
 			incrementScore(-1*(score/2));
 			Destroy(this.gameObject);

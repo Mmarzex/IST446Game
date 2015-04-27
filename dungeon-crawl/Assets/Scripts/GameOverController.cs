@@ -9,7 +9,6 @@ public class GameOverController : MonoBehaviour {
 	void Start () {
 		var gmObject = GameObject.Find("GameOverText");
 		var winner = PlayerPrefs.GetString("winner");
-		x
 		(gmObject.GetComponent<Text>()).text = winner;
 	}
 	

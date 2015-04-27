@@ -42,6 +42,9 @@ public class MultiplayerController : MonoBehaviour {
 		PlayGamesPlatform.DebugLogEnabled = true;
 
 		GooglePlayGames.PlayGamesPlatform.Activate();
+
+
+		//// FOR ANDROID
 		if(!Social.localUser.authenticated) {
 			mWaitingForAuth = true;
 			Social.localUser.Authenticate((bool success) => {
@@ -53,6 +56,8 @@ public class MultiplayerController : MonoBehaviour {
 				}
 			});
 		}
+
+
 //		if(!Social.localUser.authenticated) {
 //			mWaitingForAuth = true;
 //			Social.localUser.Authenticate((bool success) => {
@@ -118,7 +123,7 @@ public class MultiplayerController : MonoBehaviour {
 
 		var score = PlayerPrefs.GetInt("score");
 		bool selfWon = false;
-		if(score < other_score) {
+		if(score > other_score) {
 			selfWon = true;
 		}
 		foreach(Participant p in match.Participants) {
